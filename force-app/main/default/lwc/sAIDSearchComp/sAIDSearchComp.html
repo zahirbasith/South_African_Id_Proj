@@ -1,0 +1,48 @@
+<template>
+    <lightning-layout class="slds-align_absolute-center slds-text-align_center container" multiple-rows>
+        <lightning-layout-item size="12">
+           <div class="ptitle"> South African ID Search</div> 
+        </lightning-layout-item>
+        <lightning-layout-item size="12">
+           <div class="slds-var-m-vertical_large">This site can decode South African Id number and can give all the holidays for the birhtday year <br />
+        South African Id will be decoded and details like birthday, gender and citizenship status will be stored in Salesforce and a counter to increment how many times an Id is searched will be recorded </div> 
+        </lightning-layout-item>   
+        <lightning-layout-item size="12" large-device-size="6" medium-device-size="10" small-device-size="12" class="slds-m-top_large">
+            <lightning-layout>
+                <lightning-layout-item size="9">
+                    <lightning-input type="number" label="Please type in SA ID" variant="label-hidden" value={saId} placeholder="Please type in SA ID" onchange={inputHandler} pattern="(([0-9]{2})(0|1)([0-9])([0-3])([0-9]))(([0-9]{4})([0-1][8][0-9]))" ></lightning-input>
+                </lightning-layout-item>
+                <lightning-layout-item size="3">
+                    <lightning-button variant="brand" label="Search" title="Primary action" onclick={searchHandler} class="slds-m-left_x-small" disabled={disableBtn}></lightning-button>
+                </lightning-layout-item>
+            </lightning-layout>
+         </lightning-layout-item>         
+    </lightning-layout>
+    <lightning-layout class="slds-align_absolute-center slds-text-align_center container" multiple-rows>
+        <lightning-layout-item size="12">
+            <div if:true= {holidayData}>
+                <lightning-layout-item size="12">
+                    <div class="ptitle"> {year} Holidays</div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                        <thead>
+                            <th>Name of the holiday</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                        </thead>
+                        <tbody>
+                            <template for:each={holidayData} for:item="item">
+                                <tr key ={item.id}>
+                                    <td>{item.name}</td>
+                                    <td>{item.iso}</td>
+                                    <td>{item.description}</td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </lightning-layout-item>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>    
+</template>
